@@ -39,6 +39,17 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    desc: {
+      type: String,
+    },
+    city: {
+      type: String,
+      max: 50,
+    },
+    relationship: {
+      type: String,
+      max: 10,
+    },
   },
   { timestamps: true }
 );
