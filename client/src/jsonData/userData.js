@@ -1,4 +1,4 @@
-export const userData = [
+const userData = [
   {
     id: 1,
     profilePicture: "assets/profile/richierich.jfif",
@@ -35,3 +35,5 @@ export const userData = [
     username: "motu",
   },
 ];
+
+export default userData;

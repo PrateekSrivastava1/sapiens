@@ -1,12 +1,12 @@
 import React from 'react'
 import "./OnlineFriends.css"
 
-export default function OnlineFriends() {
+export default function OnlineFriends({user}) {
     return (
         <div className="onlineFriendBox">
-            <img src="/assets/profile/Swampfire.png" alt="" className="onlineFriendImage" />
+            <img src={user.profilePicture} alt="" className="onlineFriendImage" />
             <span className="onlineFriendName">
-                <b>Simon</b> is Online
+                <b>{user.username}</b> is Online
             </span>
         </div>
     )
