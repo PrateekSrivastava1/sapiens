@@ -5,12 +5,16 @@ import Badge from '@mui/material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import MessageIcon from '@mui/icons-material/Message';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { Link } from "react-router-dom"
+
 
 export default function Topbar() {
     return (
         <div className="topbarBox">
             <div className="topbarLeft">
-                <span className='logo'>BBD Social Network</span>
+                <Link to="/">
+                    <span className='logo'>BBD Social Network</span>
+                </Link>
             </div>
             <div className="topbarCenter">
                 <div className="searchBar">

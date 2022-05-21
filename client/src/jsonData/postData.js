@@ -2,7 +2,7 @@ const postData = [
   {
     id: 1,
     desc: "Ben 10 is an American media franchise created by Man of Action Studios and produced by Cartoon Network Studios. The series centers on a boy named Ben Tennyson who acquires the Omnitrix, an alien device resembling a wristwatch, which contains DNA of different alien species. Using the Omnitrix, Ben can transform into powerful aliens with various abilities. The Omnitrix initially contains ten aliens, although later on Ben obtains more species by adding their DNA.",
-    photo: "assets/profile/Swampfire.png",
+    photo: "profile/Swampfire.png",
     time: "2 mints ago",
     userId: 1,
     like: 21,
@@ -11,7 +11,7 @@ const postData = [
   {
     id: 2,
     desc: "aye jethiya, nahane ja nahane",
-    photo: "assets/profile/bapuji.jpg",
+    photo: "profile/bapuji.jpg",
     time: "10 mints ago",
     userId: 2,
     like: 29484,
@@ -20,7 +20,7 @@ const postData = [
   {
     id: 3,
     desc: "haan jaa raha hu bapu ji",
-    photo: "assets/profile/jethalal.jpg",
+    photo: "profile/jethalal.jpg",
     time: "9 mints ago",
     userId: 3,
     like: 93281,
@@ -29,7 +29,7 @@ const postData = [
   {
     id: 4,
     desc: "I love tom, but he do not like me",
-    photo: "assets/profile/tom.webp",
+    photo: "profile/tom.webp",
     time: "2 days ago",
     userId: 4,
     like: 21221,
@@ -38,7 +38,7 @@ const postData = [
   {
     id: 5,
     desc: "Love you too jerry :>",
-    photo: "assets/profile/jerry.png",
+    photo: "profile/jerry.png",
     time: "1 day ago",
     userId: 5,
     like: 231134,
@@ -47,7 +47,7 @@ const postData = [
   {
     id: 6,
     desc: "motu kuch karo, bachao hame",
-    photo: "assets/profile/motu.webp",
+    photo: "profile/motu.webp",
     time: "6 mints ago",
     userId: 6,
     like: 21233,
@@ -56,7 +56,7 @@ const postData = [
   {
     id: 7,
     desc: "khali pet mere dimag ki batti nahi jalti, tum hi kuch karo",
-    photo: "assets/profile/patlu.jpg",
+    photo: "profile/patlu.jpg",
     time: "2 mints ago",
     userId: 7,
     like: 21242,

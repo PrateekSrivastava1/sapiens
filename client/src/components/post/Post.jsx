@@ -7,7 +7,7 @@ import userData from "../../jsonData/userData";
 export default function Post({ post }) {
     const [plusOne, setPlusOne] = useState(post.like);
     const [plusOneCheck, setPlusOneCheck] = useState(false);
-
+    
     const plusOneHandler = () => {
         setPlusOneCheck(!plusOneCheck);
         if (!plusOneCheck) {
@@ -18,12 +18,14 @@ export default function Post({ post }) {
         }
     }
 
+    const URL = process.env.REACT_APP_PUBLIC_FOLDER;
+
     return (
         <div className='postBox'>
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img src={userData.filter((u) => u.id === post?.userId)[0].profilePicture} alt="" className="postProfileImage" />
+                        <img src={URL + userData.filter((u) => u.id === post?.userId)[0].profilePicture} alt="" className="postProfileImage" />
                         <span className="postUsername">
                             {userData.filter((u) => u.id === post?.userId)[0].username}
                         </span>
@@ -38,13 +40,14 @@ export default function Post({ post }) {
                     <div className="postText">
                         {post?.desc}
                     </div>
-                    <img src={post.photo} alt="" className='postImage' />
+                    <img src={URL + post.photo} alt="" className='postImage' />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        {/* <PlusOneIcon className='plusOneIcon' /> */}
                         <span className='plusOneIcon' >{plusOne}</span>
-                        <span className={plusOneCheck ? "support supported" : "support"} onClick={plusOneHandler}>PlusOne</span>
+                        {/* <span className={plusOneCheck ? "support supported" : "support"} onClick={plusOneHandler}>PlusOne</span> */}
+                        <PlusOneIcon className={plusOneCheck ? "support supported" : "support"} onClick={plusOneHandler} />
+
                     </div>
                     <div className="postBottomRight">
                         <span className='postComment'>{post.comment} comments</span>
