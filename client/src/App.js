@@ -6,10 +6,10 @@ import Profile from "./pages/profilePage/Profile";
 function App() {
   return (
     <div>
-      {/* <Home /> */}
+      <Home />
       {/* <Profile /> */}
       {/* <Login/> */}
-      <Register/>
+      {/* <Register/> */}
     </div>
   );
 }
