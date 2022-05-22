@@ -1,4 +1,4 @@
-import Login from "./pages/register/Register";
+import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Home from "./pages/homePage/Home";
 import Profile from "./pages/profilePage/Profile";
@@ -9,10 +9,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/profile/:username" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />}/>
+        <Route exact path="/profile/:username" element={<Profile />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/" element={<Home />}/>
       </Routes>
     </BrowserRouter>
   );
