@@ -1,8 +1,11 @@
 import React from 'react'
 import "./profileRightBar.css"
 
-export default function ProfileRightBar() {
+export default function ProfileRightBar({ user }) {
     const URL = process.env.REACT_APP_PUBLIC_FOLDER;
+    // const totalFollowers = user.followers.length;
+    // const totalFollowings = user.followings.length;
+
     return (
         <>
             <div className="profileRightbarBox">
@@ -11,11 +14,21 @@ export default function ProfileRightBar() {
                     <div className="profileRightbarInfo">
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">City:</span>
-                            <span className="profileRightbarInfoValue">Lucknow</span>
+                            <span className="profileRightbarInfoValue">{user.city}</span>
+                        </div>
+                        <div className="profileRightbarInfoItem">
+                            <span className="profileRightbarInfoKey">Followers:</span>
+                            {/* user.followers.length */}
+                            <span className="profileRightbarInfoValue">{ }</span>
+                        </div>
+                        <div className="profileRightbarInfoItem">
+                            <span className="profileRightbarInfoKey">Followings:</span>
+                            {/* user.followings.length */}
+                            <span className="profileRightbarInfoValue">{ }</span>
                         </div>
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">Email:</span>
-                            <span className="profileRightbarInfoValue">prateeksdr4@gmail.com</span>
+                            <span className="profileRightbarInfoValue">{user.email}</span>
                         </div>
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">Relationship:</span>

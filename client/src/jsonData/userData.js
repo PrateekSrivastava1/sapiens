@@ -6,12 +6,12 @@ const userData = [
   },
   {
     id: 2,
-    profilePicture: "profile/bapuji.png",
+    profilePicture: "profile/bapuji.jpg",
     username: "bapuji",
   },
   {
     id: 3,
-    profilePicture: "profile/jethalal.png",
+    profilePicture: "profile/jethalal.jpg",
     username: "jethalal",
   },
   {

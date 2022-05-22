@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Post.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import userData from "../../jsonData/userData";
+import axios from 'axios';
+import { format } from "timeago.js"
+import { Link } from "react-router-dom"
 
 export default function Post({ post }) {
-    const [plusOne, setPlusOne] = useState(post.like);
+    const [plusOne, setPlusOne] = useState(post.likes.length);
     const [plusOneCheck, setPlusOneCheck] = useState(false);
-    
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        const fetchAllUsers = async () => {
+            const res = await axios.get(`/users?userId=${post.userId}`);
+            // console.log(res);
+            setUser(res.data);
+        };
+        fetchAllUsers();
+    }, [post.userId]);
+
     const plusOneHandler = () => {
         setPlusOneCheck(!plusOneCheck);
         if (!plusOneCheck) {
@@ -25,11 +38,13 @@ export default function Post({ post }) {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img src={URL + userData.filter((u) => u.id === post?.userId)[0].profilePicture} alt="" className="postProfileImage" />
+                        <Link to={`profile/${user.username}`}>
+                            <img src={user.profilePicture} alt="" className="postProfileImage" />
+                        </Link>
                         <span className="postUsername">
-                            {userData.filter((u) => u.id === post?.userId)[0].username}
+                            {user.username}
                         </span>
-                        <span className="postTime">{post.time}</span>
+                        <span className="postTime">{format(post.createdAt)}</span>
                     </div>
                     <div className="postTopRight">
                         <MoreVertIcon className='threeDots' />
@@ -37,10 +52,10 @@ export default function Post({ post }) {
                     <div className="postTopBottom"></div>
                 </div>
                 <div className="postCenter">
-                    <div className="postText">
+                    <span className="postText">
                         {post?.desc}
-                    </div>
-                    <img src={URL + post.photo} alt="" className='postImage' />
+                    </span>
+                    <img src={URL + post.img} alt="" className='postImage' />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">

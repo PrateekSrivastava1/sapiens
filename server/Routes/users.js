@@ -2,9 +2,13 @@ const User = require("../models/User");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
-router.get("/:id", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const userId = req.query.userId;
+    const username = req.query.username;
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
     {
       user
         ? res.status(200).json(user)
@@ -48,9 +52,7 @@ router.put("/:id/follow", async (req, res) => {
         await userGoingToFollow.updateOne({
           $push: { followings: req.body.userId },
         });
-        res
-          .status(200)
-          .json("user has been followed by userGoingToFollow");
+        res.status(200).json("user has been followed by userGoingToFollow");
       } else {
         res.status(403).json("you already follow this user");
       }
@@ -72,9 +74,7 @@ router.put("/:id/unfollow", async (req, res) => {
         await userGoingToFollow.updateOne({
           $pull: { followings: req.body.userId },
         });
-        res
-          .status(200)
-          .json("user has been unfollowed by userGoingToFollow");
+        res.status(200).json("user has been unfollowed by userGoingToFollow");
       } else {
         res.status(403).json("you don't follow this user");
       }
