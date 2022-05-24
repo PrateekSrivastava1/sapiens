@@ -23,11 +23,11 @@ router.get("/friends/:userId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     const connections = await Promise.all(
-      user.followings.map((connectionId) => {
+      user.followers.map((connectionId) => {
         return User.findById(connectionId);
       })
     );
-    let connectionList = [];
+    let connectionList = []; 
     connections.map((connection) => {
       const { _id, username, profilePicture } = connection;
       connectionList.push({ _id, username, profilePicture });

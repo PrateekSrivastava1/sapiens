@@ -6,7 +6,7 @@ import postData from "../../jsonData/postData";
 import axios from "axios";
 import { Context } from '../../context/Context';
 
-export default function Feed({ username }) { 
+export default function Feed({ username }) {
     const [posts, setPosts] = useState([]);
     const { user } = useContext(Context);
 
@@ -24,15 +24,19 @@ export default function Feed({ username }) {
     }, [username, user._id]);
 
     return (
-        <div className='feedBox'>
-            <div className="feedWrapper">
-                {username === user.username && <Share />}
-                {
-                    posts.map((p) => {
-                        return <Post key={p._id} post={p} />
-                    })
-                }
+        <>
+            <div className='feedBox'>
+                <div className="feedWrapper">
+                    {/* {username === user.username ? <Share /> : "something"} */}
+                    <Share />
+                    {
+                        posts.map((p) => {
+                            return <Post key={p._id} post={p} />
+                        })
+                    }
+                </div>
             </div>
-        </div>
+        </>
+
     )
 }
