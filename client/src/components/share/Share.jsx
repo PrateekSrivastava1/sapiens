@@ -1,25 +1,68 @@
-import React from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import "./Share.css"
 import PhotoIcon from '@mui/icons-material/Photo';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ArticleIcon from '@mui/icons-material/Article';
 import MicNoneIcon from '@mui/icons-material/MicNone';
+import { Context } from '../../context/Context';
+import axios from "axios"
+import { Link } from 'react-router-dom';
+
 
 export default function Share() {
+
+    const { user } = useContext(Context);
+    const URL = process.env.REACT_APP_PUBLIC_FOLDER;
+    // console.log(user.username);
+    const desc = useRef();
+    const [file, setFile] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newPost = {
+            userId: user._id,
+            desc: desc.current.value,
+        };
+        if (file) {
+            const data = new FormData();
+            const fileName = Date.now() + file.name;
+            data.append("name", fileName);
+            data.append("file", file);
+            newPost.img = fileName;
+
+            try {
+                await axios.post("/upload", data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        try {
+            await axios.post("/posts", newPost);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <div className='shareBox'>
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img src="/assets/profile/Swampfire.png" alt="" className="shareProfileImage" />
-                    <input type="text" className="shareInput" placeholder='what do you want to talk about' />
+                    {/* <img src={URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" /> */}
+                    <Link to={`/profile/${user.username}`}>
+                        <img src={user.profilePicture ? URL + user.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" />
+
+
+                    </Link>
+                    <input type="text" ref={desc} className="shareInput" placeholder={"Hey " + user.username + "!, do you want to share something ?"} />
                 </div>
                 <hr />
-                <div className="shareBottom">
+                <form className="shareBottom" onSubmit={handleSubmit}>
                     <div className="shareOptions">
-                        <div className="shareOption">
+                        <label htmlFor='file' className="shareOption">
                             <PhotoIcon className='shareIcon' />
                             <span className="shareOptionText">Photo</span>
-                        </div>
+                            <input style={{ display: "none" }} type="file" id="file" accept=".jpeg,.jpg,.png" onChange={(e) => setFile(e.target.files[0])} />
+                        </label>
                         <div className="shareOption">
                             <YouTubeIcon className='shareIcon' />
                             <span className="shareOptionText">Video</span>
@@ -33,8 +76,8 @@ export default function Share() {
                             <span className="shareOptionText">Voice Message</span>
                         </div>
                     </div>
-                    <button className='sharePostButton'>Post</button>
-                </div>
+                    <button className='sharePostButton' type='submit'>Post</button>
+                </form>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import "./Post.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
@@ -6,22 +6,32 @@ import userData from "../../jsonData/userData";
 import axios from 'axios';
 import { format } from "timeago.js"
 import { Link } from "react-router-dom"
+import { Context } from '../../context/Context';
 
 export default function Post({ post }) {
     const [plusOne, setPlusOne] = useState(post.likes.length);
     const [plusOneCheck, setPlusOneCheck] = useState(false);
     const [user, setUser] = useState({});
+    const { user: currentUser } = useContext(Context);
+
+    useEffect(() => {
+        setPlusOneCheck(post.likes.includes(currentUser._id));
+    }, [currentUser._id, post.likes]) 
 
     useEffect(() => {
         const fetchAllUsers = async () => {
             const res = await axios.get(`/users?userId=${post.userId}`);
-            // console.log(res);
             setUser(res.data);
         };
         fetchAllUsers();
     }, [post.userId]);
 
     const plusOneHandler = () => {
+        try {
+            axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+        } catch (err) {
+            console.log(err);
+        }
         setPlusOneCheck(!plusOneCheck);
         if (!plusOneCheck) {
             setPlusOne(plusOne + 1);
@@ -38,8 +48,8 @@ export default function Post({ post }) {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <Link to={`profile/${user.username}`}>
-                            <img src={user.profilePicture} alt="" className="postProfileImage" />
+                        <Link to={`/profile/${user.username}`}>
+                            <img src={user.profilePicture ? URL + user.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="" className="postProfileImage" />
                         </Link>
                         <span className="postUsername">
                             {user.username}

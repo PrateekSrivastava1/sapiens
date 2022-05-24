@@ -29,8 +29,8 @@ export default function Profile() {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img src={user.backgroundPicture || URL + "/profile/noBackgroundPicture.jpg"} alt="" className="profileCoverImage" />
-                            <img src={user.profilePicture || URL + "/profile/noUserProfilePicture.jpg"} alt="" className="profileDisplayPicture" />
+                            <img src={user.backgroundPicture ? URL + user.backgroundPicture : URL + "/profile/noBackgroundPicture.jpg"} alt="" className="profileCoverImage" />
+                            <img src={user.profilePicture ? URL + user.profilePicture : URL + "/profile/noUserProfilePicture.jpg"} alt="" className="profileDisplayPicture" />
                         </div>
                         <div className="profileInfo">
                             <span className='profileInfoName'> <b>{user.username}</b> </span>

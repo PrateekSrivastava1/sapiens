@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./profileRightBar.css"
+import axios from "axios"
+import { Link } from 'react-router-dom';
+
 
 export default function ProfileRightBar({ user }) {
     const URL = process.env.REACT_APP_PUBLIC_FOLDER;
-    // const totalFollowers = user.followers.length;
-    // const totalFollowings = user.followings.length;
+    const [connections, setConnections] = useState([]);
+
+    useEffect(() => {
+        const getConnectionList = async () => {
+            try {
+                const connectionList = await axios.get("/users/connections/" + user._id);
+                setConnections(connectionList.data)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getConnectionList();
+    }, [user._id])
 
     return (
         <>
@@ -18,13 +32,11 @@ export default function ProfileRightBar({ user }) {
                         </div>
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">Followers:</span>
-                            {/* user.followers.length */}
-                            <span className="profileRightbarInfoValue">{ }</span>
+                            <span className="profileRightbarInfoValue">{8}</span>
                         </div>
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">Followings:</span>
-                            {/* user.followings.length */}
-                            <span className="profileRightbarInfoValue">{ }</span>
+                            <span className="profileRightbarInfoValue">{7}</span>
                         </div>
                         <div className="profileRightbarInfoItem">
                             <span className="profileRightbarInfoKey">Email:</span>
@@ -37,34 +49,14 @@ export default function ProfileRightBar({ user }) {
                     </div>
                     <h4 className='friendsHeading'>Friends</h4>
                     <div className="profileRightbarFollowings">
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
-                        <div className="profileRightbarFollowing">
-                            <img src={`${URL}profile/bapuji.jpg`} alt="" className='profileRightbarFollowingImage' />
-                            <span className="profileRightbarFollowingName">Champaklal Gada</span>
-                        </div>
+                        {connections.map((connection) => {
+                            <Link to={"/profile/" + connection.username}>
+                                <div className="profileRightbarFollowing">
+                                    <img src={connection.profilePicture ? URL + connection.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="" className='profileRightbarFollowingImage' />
+                                    <span className="profileRightbarFollowingName">{connection.username}</span>
+                                </div>
+                            </Link>
+                        })}
                     </div>
                 </div>
             </div>

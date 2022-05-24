@@ -2,6 +2,15 @@
     background-color: rgb(0, 30, 60);
     height: 100vh;
 }
+.login{
+    padding-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 10px #ffffff;
+    font-size: 100px;
+}
 .loginBoxWrapper{
     display: flex;
     flex-direction: column;
@@ -28,7 +37,7 @@
 .loginInput:focus{
     outline: none;
 }
-.loginButton{
+.loginButtonn{
     padding: 5px;
     border-radius: 10px;
     border: none;
@@ -38,6 +47,11 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+.loginButton:disabled{
+    cursor: not-allowed;
+}
+
 .registerButton{
     padding: 5px;
     border-radius: 10px;
@@ -49,4 +63,8 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+a{
+    color: white;
+    text-decoration: underline;
 }

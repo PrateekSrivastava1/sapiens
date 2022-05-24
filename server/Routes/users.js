@@ -19,6 +19,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/friends/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const connections = await Promise.all(
+      user.followings.map((connectionId) => {
+        return User.findById(connectionId);
+      })
+    );
+    let connectionList = [];
+    connections.map((connection) => {
+      const { _id, username, profilePicture } = connection;
+      connectionList.push({ _id, username, profilePicture });
+    });
+    res.status(200).json(connectionList);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     if (req.body.password) {

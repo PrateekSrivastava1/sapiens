@@ -3,16 +3,24 @@ import Register from "./pages/register/Register";
 import Home from "./pages/homePage/Home";
 import Profile from "./pages/profilePage/Profile";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Redirect, Navigate } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "./context/Context";
 
 function App() {
+  const { user } = useContext(Context);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/profile/:username" element={<Profile />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/" element={<Home />}/>
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/" /> : <Register />}
+        />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );
