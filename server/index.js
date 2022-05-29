@@ -7,6 +7,8 @@ const morgan = require("morgan");
 const userRoute = require("./Routes/users");
 const authRoute = require("./Routes/auth");
 const postRoute = require("./Routes/posts");
+const conversationRoute = require("./Routes/conversation");
+const textMessageRoute = require("./Routes/textMessage");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
@@ -56,6 +58,9 @@ app.post("/server/upload", upload.single("file"), (req, res) => {
 app.use("/server/users", userRoute);
 app.use("/server/auth", authRoute);
 app.use("/server/posts", postRoute);
+app.use("/server/conversations", conversationRoute);
+app.use("/server/textMessages", textMessageRoute);
+
 
 app.listen(5000, () => {
   console.log("backend server is running on port 5000");

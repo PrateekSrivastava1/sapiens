@@ -9,12 +9,7 @@
     padding: 10px;
     height: 100%;
 }
-hr{
-    width: 103%;
-    margin-left: -10px;
-    /* color: grey; */
-    border: 1px solid grey;
-}
+
 .chatMenu{
     flex: 3.5;
     background-color: rgb(34, 30, 30);
@@ -69,8 +64,13 @@ textarea {
     outline: none;
 }
 .chatBoxBottomSubmitButton{
+    display: flex;
     height: 43px;
     border-radius: 20px;
+    background-color: rgb(2, 94, 175);
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
 }
 .chatOnline{
     flex: 3;
@@ -78,4 +78,14 @@ textarea {
 }
 .searchMenuInput:focus{
     outline: none;
+}
+hr{
+    width: 103%;
+    margin-left: -10px;
+    border: 1px solid grey;
+}
+.noChatSpan{
+    position: relative;
+    top: 30%;
+    text-align: center;
 }
