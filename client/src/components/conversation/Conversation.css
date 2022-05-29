@@ -1,0 +1,24 @@
+.conversationBox{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.conversationBox:hover{
+    background-color: black;
+}
+
+.conversationImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+.conversationPersonName{
+    font-weight: 500;
+}

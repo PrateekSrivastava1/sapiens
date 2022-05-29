@@ -10,7 +10,7 @@ export default function ProfileRightBar({ user }) {
     const URL = process.env.REACT_APP_PUBLIC_FOLDER;
     const [connections, setConnections] = useState([]);
     const { user: currentUser, dispatch } = useContext(Context);
-    const [follow, setFollow] = useState(false);
+    const [follow, setFollow] = useState(currentUser.followings.includes(user?._id));
 
     useEffect(() => {
         setFollow(currentUser.followings.includes(user?._id));

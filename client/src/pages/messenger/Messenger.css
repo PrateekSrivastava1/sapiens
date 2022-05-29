@@ -1,0 +1,81 @@
+.messengerBox{
+    height: calc(100vh - 50px);
+    display:flex;
+    background-color: black;
+    color: white;
+
+}
+.chatBoxWrapper, .chatMenuWrapper, .chatOnlineWrapper{
+    padding: 10px;
+    height: 100%;
+}
+hr{
+    width: 103%;
+    margin-left: -10px;
+    /* color: grey; */
+    border: 1px solid grey;
+}
+.chatMenu{
+    flex: 3.5;
+    background-color: rgb(34, 30, 30);
+}
+.searchMenuInput{
+    margin-top: 10px;
+    padding: 10px;
+    width: 90%;
+    border: none;
+    border-radius: 50px;
+    background-color: darkgray;
+}
+.chatBox{
+    flex: 5.5;
+}
+.chatBoxWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+.chatBoxTop{
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+.chatBoxBottom{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.chatBoxBottomMessageInput{
+    width: 80%;
+    height: 20px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+textarea {
+    color: white;
+    padding: 10px;
+    width: 90%;
+    border: none;
+    border-radius: 50px;
+    background-color: rgb(96, 95, 95);
+    resize: none;
+}
+
+.chatBoxBottomMessageInput:focus{
+    outline: none;
+}
+.chatBoxBottomSubmitButton{
+    height: 43px;
+    border-radius: 20px;
+}
+.chatOnline{
+    flex: 3;
+    background-color: rgb(34, 30, 30);
+}
+.searchMenuInput:focus{
+    outline: none;
+}

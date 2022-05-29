@@ -85,3 +85,7 @@
     cursor: pointer;
     border: 1px solid rgb(19, 47, 76);
 }
+.a{
+    text-decoration: none;
+    color: blue;
+}

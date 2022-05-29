@@ -7,12 +7,12 @@ import MicNoneIcon from '@mui/icons-material/MicNone';
 import { Context } from '../../context/Context';
 import axios from "axios"
 import { Link } from 'react-router-dom';
-
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 export default function Share() {
 
     const { user } = useContext(Context);
-    const URL = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PHOTO_URL = process.env.REACT_APP_PUBLIC_FOLDER;
     // console.log(user.username);
     const desc = useRef();
     const [file, setFile] = useState(null);
@@ -47,15 +47,19 @@ export default function Share() {
         <div className='shareBox'>
             <div className="shareWrapper">
                 <div className="shareTop">
-                    {/* <img src={URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" /> */}
+                    {/* <img src={PHOTO_URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" /> */}
                     <Link to={`/profile/${user.username}`}>
-                        <img src={user.profilePicture ? URL + user.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" />
-
-
+                        <img src={user.profilePicture ? PHOTO_URL + user.profilePicture : PHOTO_URL + "profile/noUserProfilePicture.jpg"} alt="" className="shareProfileImage" />
                     </Link>
                     <input type="text" ref={desc} className="shareInput" placeholder={"Hey " + user.username + "!, do you want to share something ?"} />
                 </div>
                 <hr />
+                {file && (
+                    <div className="shareImgContainer">
+                        <img className='shareImage' src={URL.createObjectURL(file)} alt="" />
+                        <RemoveCircleOutlineIcon className="shareImageCancelIcon" onClick={() => setFile(null)} />
+                    </div>
+                )}
                 <form className="shareBottom" onSubmit={handleSubmit}>
                     <div className="shareOptions">
                         <label htmlFor='file' className="shareOption">

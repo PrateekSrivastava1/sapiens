@@ -37,15 +37,17 @@ export default function Topbar() {
                     <Badge badgeContent={4} color="error" className='topbarIcon'>
                         <PersonIcon />
                     </Badge>
-                    <Badge badgeContent={4} color="error" className='topbarIcon'>
-                        <MessageIcon />
-                    </Badge>
+                    <Link to="/messenger">
+                        <Badge badgeContent={4} color="error" className='topbarIcon'>
+                            <MessageIcon color="primary" />
+                        </Badge>
+                    </Link>
                     <Badge badgeContent={4} color="error" className='topbarIcon'>
                         <NotificationsNoneIcon />
                     </Badge>
                 </div>
                 <Link to={`/profile/${user.username}`}>
-                <img className='topbarProfilePicture' src={user.profilePicture ? URL + user.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="profile" />                
+                    <img className='topbarProfilePicture' src={user.profilePicture ? URL + user.profilePicture : URL + "profile/noUserProfilePicture.jpg"} alt="profile" />
                 </Link>
             </div>
         </div>

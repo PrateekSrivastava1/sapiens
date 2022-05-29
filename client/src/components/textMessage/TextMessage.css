@@ -1,0 +1,42 @@
+.messageBox{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.messageTop{
+    display: flex;
+}
+.messageImage{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.messageText{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: grey;
+    /* background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(153,113,27,1) 100%); */
+    color: white;
+    max-width: 250px;
+}
+.messageBottom{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.messageBox.myMessage{
+    align-items: flex-end;
+}
+/* .messageBox.myMessage .messageText{ 
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+} */
+
+.messageBox.myMessage .messageText{ 
+    background: rgb(48, 72, 188);
+    background: linear-gradient(90deg, rgb(38, 57, 151) 0%, rgb(106, 19, 38) 100%);
+}
