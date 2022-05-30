@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import "./Messenger.css";
 import Topbar from "../../components/topbar/Topbar"
 import Conversation from '../../components/conversation/Conversation';
@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import OnlinePerson from "../../components/onlinePeople/OnlinePeople"
 import { Context } from "../../context/Context"
 import axios from "axios";
+import { io } from "socket.io-client";
 
 export default function Messenger() {
 
@@ -16,13 +17,22 @@ export default function Messenger() {
     const [textMessages, setTextMessages] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [newTextMessages, setNewTextMessages] = useState([]);
+    const scrollRef = useRef();
+    const [socket, setSocket] = useState(null);
 
+    // useEffect(() => {
+    //     setSocket(io("ws://localhost:6000")) 
+    // }, [])
+    useEffect(() => {
+        const newSocket = io(`http://${window.location.hostname}:3000`);
+        setSocket(newSocket);
+        return () => newSocket.close();
+      }, [setSocket]);
 
     useEffect(() => {
         const getConversations = async () => {
             try {
                 const res = await axios.get("/conversations/" + user._id);
-                // console.log(res);
                 setConversations(res.data);
             } catch (err) {
                 console.log(err);
@@ -35,11 +45,13 @@ export default function Messenger() {
         const getTextMessages = async () => {
             try {
                 const res = await axios.get("/textMessages/" + currentChat?._id);
+                console.log('res.data', typeof (res.data), res);
                 setTextMessages(res.data);
+
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
         getTextMessages();
     }, [currentChat]);
 
@@ -53,11 +65,15 @@ export default function Messenger() {
         try {
             const res = await axios.post("/textMessages", message);
             setTextMessages([...textMessages, res.data]);
-            setTextMessages("");
         } catch (err) {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+        console.log(typeof (textMessages));
+    }, [textMessages]);
 
     return (
         <>
@@ -86,7 +102,9 @@ export default function Messenger() {
                                 <hr />
                                 <div className="chatBoxTop">
                                     {textMessages.map((m) => (
-                                        <TextMessage message={m} myMessage={m.sender === user._id} />
+                                        <div ref={scrollRef}>
+                                            <TextMessage message={m} myMessage={m.sender === user._id} />
+                                        </div>
                                     ))}
                                 </div>
                                 <div className="chatBoxBottom">
@@ -99,13 +117,13 @@ export default function Messenger() {
                                         placeholder='type something...'
                                         value={newTextMessages}
                                     />
-                                    <button
+                                    <Button
                                         className='chatBoxBottomSubmitButton'
                                         variant="contained"
                                         onClick={handleSubmit}
                                     >
                                         Send <SendIcon />
-                                    </button>
+                                    </Button>
                                 </div>
                             </> :
                             <span className='noChatSpan'>

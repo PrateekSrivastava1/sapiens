@@ -9,8 +9,8 @@ export default function TextMessage({message, myMessage}) {
                 <img src="https://i.pinimg.com/564x/05/18/a2/0518a2a092bfdc95593b76aead97f220--ratatouille-pimp.jpg" alt="" className="messageImage" />
                 <p className="messageText">
                     {message.text}
-                </p>
-            </div>
+                </p> 
+            </div> 
             <div className="messageBottom">
                 {format(message.createdAt)}
             </div>
