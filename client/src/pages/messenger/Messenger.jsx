@@ -18,16 +18,18 @@ export default function Messenger() {
     const [currentChat, setCurrentChat] = useState(null);
     const [newTextMessages, setNewTextMessages] = useState([]);
     const scrollRef = useRef();
-    const [socket, setSocket] = useState(null);
+    const socket = useRef();
 
-    // useEffect(() => {
-    //     setSocket(io("ws://localhost:6000")) 
-    // }, [])
     useEffect(() => {
-        const newSocket = io(`http://${window.location.hostname}:3000`);
-        setSocket(newSocket);
-        return () => newSocket.close();
-      }, [setSocket]);
+        socket.current = io("ws://localhost:6001");
+    }, [])
+
+    useEffect(() => {
+        socket.current.emit("addUser", user._id);
+        socket.current.on("getUsers", users => {
+            console.log(users);
+        })
+    }, [user]);
 
     useEffect(() => {
         const getConversations = async () => {
@@ -45,7 +47,7 @@ export default function Messenger() {
         const getTextMessages = async () => {
             try {
                 const res = await axios.get("/textMessages/" + currentChat?._id);
-                console.log('res.data', typeof (res.data), res);
+                // console.log('res.data', typeof (res.data), res);
                 setTextMessages(res.data);
 
             } catch (err) {
@@ -72,7 +74,7 @@ export default function Messenger() {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-        console.log(typeof (textMessages));
+        // console.log(typeof (textMessages));
     }, [textMessages]);
 
     return (
