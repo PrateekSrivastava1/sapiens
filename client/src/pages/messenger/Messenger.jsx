@@ -15,6 +15,7 @@ export default function Messenger() {
     const { user } = useContext(Context);
     const [conversations, setConversations] = useState([]);
     const [textMessages, setTextMessages] = useState([]);
+    const [arrivalMessages, setArrivalMessages] = useState(null);
     const [currentChat, setCurrentChat] = useState(null);
     const [newTextMessages, setNewTextMessages] = useState([]);
     const scrollRef = useRef();
@@ -22,7 +23,19 @@ export default function Messenger() {
 
     useEffect(() => {
         socket.current = io("ws://localhost:6001");
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessages({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            })
+        })
     }, [])
+
+    useEffect(() => {
+        arrivalMessages && currentChat?.members.includes(arrivalMessages.sender) && 
+        setTextMessages((prev) => [...prev, arrivalMessages]);
+    }, [arrivalMessages, currentChat]);
 
     useEffect(() => {
         socket.current.emit("addUser", user._id);
@@ -64,6 +77,17 @@ export default function Messenger() {
             text: newTextMessages,
             conversationId: currentChat._id,
         };
+
+        const receiverId = currentChat.members.find(
+            (member) => member !== user._id
+        )
+
+        socket.current.emit("sendMesaage", {
+            senderId: user._id,
+            receiverId,
+            text: newTextMessages
+        })
+
         try {
             const res = await axios.post("/textMessages", message);
             setTextMessages([...textMessages, res.data]);
