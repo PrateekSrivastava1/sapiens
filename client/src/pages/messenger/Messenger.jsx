@@ -5,7 +5,7 @@ import Conversation from '../../components/conversation/Conversation';
 import TextMessage from '../../components/textMessage/TextMessage';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import OnlinePerson from "../../components/onlinePeople/OnlinePeople"
+import OnlinePeople from "../../components/onlinePeople/OnlinePeople"
 import { Context } from "../../context/Context"
 import axios from "axios";
 import { io } from "socket.io-client";
@@ -18,6 +18,7 @@ export default function Messenger() {
     const [arrivalMessages, setArrivalMessages] = useState(null);
     const [currentChat, setCurrentChat] = useState(null);
     const [newTextMessages, setNewTextMessages] = useState([]);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const scrollRef = useRef();
     const socket = useRef();
 
@@ -33,16 +34,20 @@ export default function Messenger() {
     }, [])
 
     useEffect(() => {
-        arrivalMessages && currentChat?.members.includes(arrivalMessages.sender) && 
-        setTextMessages((prev) => [...prev, arrivalMessages]);
+        arrivalMessages && currentChat?.members.includes(arrivalMessages.sender) &&
+            setTextMessages((prev) => [...prev, arrivalMessages]);
     }, [arrivalMessages, currentChat]);
 
     useEffect(() => {
         socket.current.emit("addUser", user._id);
-        socket.current.on("getUsers", users => {
-            console.log(users);
-        })
+        socket.current.on("getUsers", (users) => {
+            // console.log(users);
+            setOnlineUsers(
+                user.followings.filter((f) => users.some((u) => u.userId === f)));
+        });
     }, [user]);
+
+    // console.log("online users:", onlineUsers);
 
     useEffect(() => {
         const getConversations = async () => {
@@ -163,11 +168,7 @@ export default function Messenger() {
                         <h3>
                             Online People
                         </h3>
-                        <OnlinePerson />
-                        <OnlinePerson />
-                        <OnlinePerson />
-                        <OnlinePerson />
-                        <OnlinePerson />
+                        <OnlinePeople onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat} />
                     </div>
                 </div>
             </div>
