@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import "./OnlinePeople.css"
 import axios from "axios";
 
-
 export default function OnlinePeople({ onlineUsers, currentId, setCurrentChat }) {
 
     const [friends, setFriends] = useState([]);
@@ -13,7 +12,7 @@ export default function OnlinePeople({ onlineUsers, currentId, setCurrentChat })
     useEffect(() => {
         const getFriends = async () => {
             const res = await axios.get("/users/friends/" + currentId);
-            console.log(res.data);
+            // console.log(res.data);
             setFriends(res.data);
         };
         getFriends();
@@ -22,7 +21,7 @@ export default function OnlinePeople({ onlineUsers, currentId, setCurrentChat })
 
     useEffect(() => {
         setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
-    }, [friends, onlineUsers])
+    }, [friends, onlineUsers]) 
 
     console.log("online friends: ", onlineFriends);
 
@@ -32,10 +31,10 @@ export default function OnlinePeople({ onlineUsers, currentId, setCurrentChat })
                 <div className='onlinePeopleBox'>
                     <div className="onlinePeopleEach">
                         <div className="onlinePeopleImageBox">
-                            <img src={online.profilePicture ? URL + online.profilePicture : URL + "profile/noUserProfilePicture.jpg"} className='onlinePeopleImage' alt="" />
+                            <img src={online?.profilePicture ? URL + online.profilePicture : URL + "profile/noUserProfilePicture.jpg"} className='onlinePeopleImage' alt="" />
                             <span className="onlinePeopleBadge"></span>
                         </div>
-                        <span className='onlinePeopleUsername'>{online.username}</span>
+                        <span className='onlinePeopleUsername'>{online?.username}</span>
                     </div>
                 </div>
             ))}

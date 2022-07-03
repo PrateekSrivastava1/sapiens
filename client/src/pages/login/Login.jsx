@@ -29,7 +29,7 @@ export default function Login() {
                     <input type="password" required placeholder='Enter your password' minLength="8" className="loginInput" ref={password} />
                     <button className="loginButtonn" disabled={isFetching}>{isFetching ? <LinearProgress color='success' /> : "Log In"}</button>
                     <Link to="/">forgot password?</Link>
-                    <button className='registerButton'>Register</button>
+                    <button className='registerButton'><Link to="/register">Register</Link></button>
                 </form>
             </div>
         </>

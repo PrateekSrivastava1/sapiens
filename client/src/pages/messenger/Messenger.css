@@ -11,7 +11,7 @@
 }
 
 .chatMenu{
-    flex: 3.5;
+    flex: 3;
     background-color: rgb(34, 30, 30);
 }
 .searchMenuInput{
@@ -23,7 +23,7 @@
     background-color: darkgray;
 }
 .chatBox{
-    flex: 5.5;
+    flex: 9;
 }
 .chatBoxWrapper{
     display: flex;
@@ -72,10 +72,10 @@ textarea {
     font-weight: 500;
     cursor: pointer;
 }
-.chatOnline{
+/* .chatOnline{
     flex: 3;
     background-color: rgb(34, 30, 30);
-}
+} */
 .searchMenuInput:focus{
     outline: none;
 }

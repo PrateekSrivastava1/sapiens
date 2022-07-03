@@ -34,15 +34,16 @@ export default function Topbar() {
                     <span className="topbarPage">Timeline</span>
                 </div>
                 <div className="topbarIcons">
-                    <Badge badgeContent={4} color="error" className='topbarIcon'>
+                    <Badge  color="error" className='topbarIcon'>
                         <PersonIcon />
                     </Badge>
                     <Link to="/messenger">
-                        <Badge badgeContent={4} color="error" className='topbarIcon'>
+                        <Badge  color="error" className='topbarIcon'>
                             <MessageIcon color="primary" />
                         </Badge>
                     </Link>
-                    <Badge badgeContent={4} color="error" className='topbarIcon'>
+                    {/* badgeContent={4} */}
+                    <Badge  color="error" className='topbarIcon'>
                         <NotificationsNoneIcon />
                     </Badge>
                 </div>

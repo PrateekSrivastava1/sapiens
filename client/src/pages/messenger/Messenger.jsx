@@ -163,14 +163,14 @@ export default function Messenger() {
                         }
                     </div>
                 </div>
-                <div className="chatOnline">
+                {/* <div className="chatOnline">
                     <div className="chatOnlineWrapper">
                         <h3>
                             Online People
                         </h3>
                         <OnlinePeople onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat} />
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )
